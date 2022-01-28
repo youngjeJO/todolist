@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 const Inputbox = (props) => {
   const [todo, setTodo] = useState('');
@@ -13,7 +13,23 @@ const Inputbox = (props) => {
     setTodo('');
     setTodolist((currentArray) => [todo, ...currentArray]);
   };
-  console.log(todolist);
+
+  //삭제 함수
+  const deleteBtn = (event) => {
+    console.log(event.target.parentNode.id);
+    let listId = event.target.parentNode.id;
+    todolist.splice(listId, 1);
+    const list = [...todolist];
+    setTodolist(list);
+  };
+
+  const pushList = todolist.map((item, index) => (
+    <li className='todo_list' id={index} key={index}>
+      {item}
+      <button onClick={deleteBtn}>delete</button>
+    </li>
+  ));
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -25,11 +41,7 @@ const Inputbox = (props) => {
         ></input>
         <button>enter</button>
       </form>
-      <ul>
-        {todolist.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <ul>{pushList}</ul>
     </div>
   );
 };
