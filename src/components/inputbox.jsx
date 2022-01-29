@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import './inputbox.css';
 
 const Inputbox = (props) => {
   const [todo, setTodo] = useState('');
   const [todolist, setTodolist] = useState([]);
+  const [retouch, setRetouch] = useState(false);
   // const clickEvent = () => setTodolist(todolist.push({ todo }));
   const onChange = (event) => setTodo(event.target.value);
   const onSubmit = (event) => {
@@ -12,6 +14,11 @@ const Inputbox = (props) => {
     }
     setTodo('');
     setTodolist((currentArray) => [todo, ...currentArray]);
+    box_arr.forEach((item) => {
+      if (item.classList.contains('show')) {
+        item.classList.remove('show');
+      }
+    });
   };
 
   //삭제 함수
@@ -23,9 +30,30 @@ const Inputbox = (props) => {
     setTodolist(list);
   };
 
+  //수정 함수
+  const getList = useRef(null);
+  const box_arr = document.querySelectorAll('.retouchBox');
+  const retouchBtn = (event) => {
+    let active = retouch === false ? true : false;
+    setRetouch(active);
+    if (retouch === false) {
+      setRetouch(true);
+      box_arr[event.target.parentNode.id].classList.add('show');
+      box_arr[event.target.parentNode.id].classList.remove('hide');
+    } else {
+      setRetouch(false);
+      box_arr[event.target.parentNode.id].classList.add('hide');
+      box_arr[event.target.parentNode.id].classList.remove('show');
+      todolist[event.target.parentNode.id] =
+        box_arr[event.target.parentNode.id].value;
+    }
+  };
+
   const pushList = todolist.map((item, index) => (
-    <li className='todo_list' id={index} key={index}>
+    <li ref={getList} className='todo_list' id={index} key={index}>
       {item}
+      <input type='text' className='retouchBox' />
+      <button onClick={retouchBtn}>retouch</button>
       <button onClick={deleteBtn}>delete</button>
     </li>
   ));
