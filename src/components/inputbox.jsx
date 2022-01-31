@@ -53,23 +53,28 @@ const Inputbox = (props) => {
     <li ref={getList} className='todo_list' id={index} key={index}>
       {item}
       <input type='text' className='retouchBox' />
-      <button onClick={retouchBtn}>retouch</button>
-      <button onClick={deleteBtn}>delete</button>
+      <button onClick={retouchBtn} className='btns'>
+        retouch
+      </button>
+      <button onClick={deleteBtn} className='btns'>
+        delete
+      </button>
     </li>
   ));
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
+    <div className='todoList-box'>
+      <form onSubmit={onSubmit} className='input_box'>
         <input
           onChange={onChange}
           value={todo}
           type='text'
           placeholder='what to do'
+          className='inputBox'
         ></input>
-        <button>enter</button>
+        <button className='inputBtn'>enter</button>
       </form>
-      <ul>{pushList}</ul>
+      <ul className='listBox'>{pushList}</ul>
     </div>
   );
 };
