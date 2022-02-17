@@ -10,9 +10,12 @@
   display: none;
 }
 .todoList-box {
+  margin: 0 auto;
+  width: 50%;
   min-height: 500px;
   background-color: blanchedalmond;
   overflow: visible;
+  box-shadow: 1px 0px 4px gray;
 }
 
 .input_box {
@@ -22,6 +25,7 @@
   margin: 0 auto 0 auto;
   display: flex;
   justify-content: center;
+  box-shadow: 1px 0px 4px gray;
 }
 
 .inputBox {
@@ -49,7 +53,12 @@
 
 .todo_list {
   width: 100%;
+  margin-bottom: 10px;
   list-style: none;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(248, 208, 156, 0.342);
+  box-shadow: 1px 0px 4px gray;
 }
 
 .btns {
